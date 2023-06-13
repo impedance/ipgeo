@@ -7,7 +7,8 @@ class TestIpgeobase < Minitest::Test
     refute_nil ::Ipgeobase::VERSION
   end
 
-  def test_it_does_something_useful
-    assert false
+  def test_it_has_lookup_method
+    ip_meta = Ipgeobase.lookup('8.8.8.8')
+    assert ip_meta.city == 'Ashburn'
   end
 end
