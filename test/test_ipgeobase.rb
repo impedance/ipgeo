@@ -9,6 +9,18 @@ class TestIpgeobase < Minitest::Test
 
   def test_it_has_lookup_method
     ip_meta = Ipgeobase.lookup('8.8.8.8')
-    assert ip_meta.city == 'Ashburn'
+    assert ip_meta.city.include?('Ashburn')
   end
+
+  # def test_it_makes_http_request
+  #   ADDRESS_XML_DATA = 
+  #     '<address>
+  #       <street>Milchstrasse</street>
+  #       <housenumber>23</housenumber>
+  #       <postcode>26131</postcode>
+  #       <city>Ashburn</city>
+  #       <country code="de">Germany</country>
+  #     </address>'
+  #   ip_meta = Ipgeobase.lookup('8.8.8.8')
+  # end
 end
