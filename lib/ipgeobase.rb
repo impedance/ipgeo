@@ -11,13 +11,10 @@ module Ipgeobase
   #
 
   def self.lookup(address)
-    # HappyMapper.parse(ADDRESS_XML_DATA)
-
     uri = URI("http://ip-api.com/xml/#{address}")
     response = Net::HTTP.get_response(uri)
-    # puts res.body if res.is_a?(Net::HTTPSuccess)
+
     if response.is_a?(Net::HTTPSuccess)
-      puts response.body
       parse_response(response.body)
     end
   end
