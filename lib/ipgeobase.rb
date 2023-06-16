@@ -20,7 +20,8 @@ module Ipgeobase
   end
 
   def self.parse_response(response)
-    HappyMapper.parse(response)
+    result = HappyMapper.parse(response)
+    result
   end
 
 end

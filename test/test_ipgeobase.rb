@@ -7,23 +7,29 @@ class TestIpgeobase < Minitest::Test
     refute_nil ::Ipgeobase::VERSION
   end
 
-  def test_it_has_lookup_method
-    address_xml_data = 
-      '<address>
-        <street>Milchstrasse</street>
-        <housenumber>23</housenumber>
-        <postcode>26131</postcode>
-        <city>Ashburn</city>
-        <country code="de">Germany</country>
-      </address>'.freeze
-    stub_request(:get, "http://ip-api.com/xml/8.8.8.8").
-      to_return(status: 200, body: address_xml_data, headers: {})
+  ADDRESS_XML_DATA = 
+    '<address>
+      <street>Milchstrasse</street>
+      <housenumber>23</housenumber>
+      <postcode>26131</postcode>
+      <city>Ashburn</city>
+      <country code="de">Germany</country>
+    </address>'.freeze
 
-    ip_meta = Ipgeobase.lookup('8.8.8.8')
-    assert ip_meta.city.include?('Ashburn')
+  def test_it_makes_http_request
+    stub_request(:get, "http://ip-api.com/xml/8.8.8.8").
+      to_return(status: 200, body: ADDRESS_XML_DATA, headers: {})
+
+    Ipgeobase.lookup('8.8.8.8')
   end
 
-  # def test_it_makes_http_request
-  #   ip_meta = Ipgeobase.lookup('8.8.8.8')
-  # end
+  def test_it_parses_data_correctly
+    stub_request(:get, "http://ip-api.com/xml/83.169.216.199").
+      to_return(status: 200, body: ADDRESS_XML_DATA, headers: {})
+
+    ip_meta = Ipgeobase.lookup('83.169.216.199')
+    assert ip_meta.city.include?('Ashburn')
+    assert ip_meta.country.content.include?('Germany')
+    assert ip_meta.street.include?('Milchstrasse')
+  end
 end
