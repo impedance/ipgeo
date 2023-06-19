@@ -27,3 +27,5 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/ipgeobase.
+![example workflow](https://github.com/impedance/ipgeobase/actions/workflows/main.yml/badge.svg)
+
