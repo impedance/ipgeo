@@ -14,3 +14,6 @@ gem "rubocop", "~> 1.21"
 gem 'nokogiri-happymapper'
 gem 'simplecov', require: false, group: :test
 
+group :test do
+  gem "webmock"
+end
